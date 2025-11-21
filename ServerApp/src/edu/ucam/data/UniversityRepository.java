@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import edu.ucam.domain.Alumno;
 import edu.ucam.domain.Asignatura;
 import edu.ucam.domain.Matricula;
 import edu.ucam.domain.Titulacion;
@@ -22,7 +21,7 @@ public class UniversityRepository {
 	
     private Hashtable<String, Titulacion> titulaciones;
     private Hashtable<String, Asignatura> asignaturas;
-    private Hashtable<String, Alumno> alumnos;
+    //private Hashtable<String, Alumno> alumnos; <-- Entrega Junio
     private Hashtable<String, Matricula> matriculas;
     
     private Hashtable<String, String> usuarios;
@@ -31,7 +30,7 @@ public class UniversityRepository {
         // Inicializamos las tablas
         this.titulaciones = new Hashtable<>();
         this.asignaturas = new Hashtable<>();
-        this.alumnos = new Hashtable<>();
+        //this.alumnos = new Hashtable<>();
         this.matriculas = new Hashtable<>();
         this.usuarios = new Hashtable<>();
 
