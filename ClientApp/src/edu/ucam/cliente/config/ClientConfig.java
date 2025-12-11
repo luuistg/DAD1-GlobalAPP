@@ -26,6 +26,7 @@ public class ClientConfig {
         repos.put(1, new TitulacionRepository(comm, data));
         repos.put(2, null);
         repos.put(3, new AsignaturaRepository(comm, data));
+        repos.put(0, null);
         
         return repos;
     }

@@ -1,6 +1,12 @@
 package edu.ucam.logic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.ucam.data.UniversityRepository;
+import edu.ucam.interfaces.ICommand;
+import edu.ucam.logic.command.LogInCommand;
+import edu.ucam.logic.command.PassCommand;
 import edu.ucam.threads.ClientHandler;
 
 public class ProtocolParser {
@@ -12,142 +18,74 @@ public class ProtocolParser {
 	 */
 	
 	private ClientHandler clientHandler;
-    private UniversityRepository repo;
+    private Map<String, ICommand> comands;
 
     public ProtocolParser(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
-        this.repo = UniversityRepository.getInstance();
+        this.comands = new HashMap<>();
+        inicializarComandos();
+    }
+    
+    private void inicializarComandos() {
+        // Registramos cada palabra clave con su obrero especialista
+        comands.put("USER", new LogInCommand());
+        comands.put("PASS", new PassCommand());
+        
+        // Comandos de Titulaciones
+        comands.put("ADDTIT", null);
+        comands.put("LISTTIT", null);
+        comands.put("REMOVETIT", null);
+        
+        // Comandos de Asignaturas
+        comands.put("ADDASIG", null);
     }
 	
 	public String processCommand(String recivedLine) {
 		
-		String partes[] = recivedLine.split(" ");
-		    
-	    if (partes.length < 2) return "FAILED 0 400 Comando incompleto o vacío";
+		if (recivedLine == null || recivedLine.trim().isEmpty()) return "FAILED 0 400 Comando incompleto o vacío";
 		
-		String idEnvio = partes[0];
-	    String comando = partes[1].toUpperCase();
+		String partes[] = recivedLine.split(" ");
+		
+		CommandParser request = new CommandParser(partes);
+		
+		//Comprobar si el usaurio esta loggeado
 	    
-	    //Comprobar si el usaurio esta loggeado
-	    
-	    if(noAuthorized(comando)) return new ProtocolResponse(
+	    if(noAuthorized(request.getName())) return new ProtocolResponse(
 				ProtocolResponse.Status.FAILED, 
-				idEnvio,
+				request.getId(),
 				401,
 				"Acceso denegado. Debe iniciar sesión primero."
 				).toProtocolString();
-	    
-	    
-	    try {
-	    	switch (comando) {
-		    
-		    case "USER":
+		
+		if (comands.containsKey(request.getName())) {
+            
+		    try {
 		    	
-		    	if(repo.existUser(partes[2])) {
-		    		
-		    		clientHandler.setUsername(partes[2]);
-		    		
-		    		 return new ProtocolResponse(
-			                ProtocolResponse.Status.OK, 
-			                idEnvio, 
-			                200,
-			                "Envie Contraseña"
-			            ).toProtocolString();	
-		    	}
+	            return comands.get(request.getName()).execute(request, clientHandler);
 		    	
-		    	 return new ProtocolResponse(
+		    	
+		    }catch(Exception e) {
+		    	
+		    	String mensajeError = e.getMessage();
+		    	
+		    	ProtocolResponse respuestaError = new ProtocolResponse(
 		                ProtocolResponse.Status.FAILED, 
-		                idEnvio, 
+		                request.getId(), 
 		                400,
-		                "Not user."
-		            ).toProtocolString();
-		        
-		    case "PASS":
+		                mensajeError
+		            );
+	
+		            return respuestaError.toProtocolString();
 		    	
-		    	if(repo.validarUsuario(clientHandler.getUsername(), partes[2])) {
-		    		
-		    		clientHandler.addThread(clientHandler.getUsername());
-		    		clientHandler.setAuthenticated(true);
-		    		
-		    		return new ProtocolResponse(
-			                ProtocolResponse.Status.OK, 
-			                idEnvio, 
-			                200,
-			                "Welcome"
-			            ).toProtocolString();	
-		    	}
-		    	return new ProtocolResponse(
-		                ProtocolResponse.Status.FAILED, 
-		                idEnvio, 
-		                400,
-		                "Pruebe de nuevo."
-		            ).toProtocolString();	
-		        
-		    case "EXIT":
-		    	
-		    	clientHandler.stopHandler();
-		    	
-		    	return new ProtocolResponse(
-		    	        ProtocolResponse.Status.OK, 
-		    	        idEnvio, 
-		    	        200, 
-		    	        "Adios"
-		    	    ).toProtocolString();
-		    	
-		    case "SESIONES":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "ADDTIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "UPDATETIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "GETTIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "REMOVETIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "LISTTIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "COUNTTIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "ADDASIG":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "GETASIG":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "REMOVEASIG":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "LISTASIG":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "ADDASIG2TIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "REMOVEASIGFROMTIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "LISTASIGFROMTIT":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "ADDMATRICULA":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "UPDATEMATRICULA":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "GETMATRICULA":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    case "REMOVEMATRICULA":
-		        return "OK " + idEnvio + " 200 En desarrollo";
-		    default:
-		        return "FAILED " + idEnvio + " 400 Comando desconocido";
-	    	}
-	    	
-	    }catch(Exception e) {
-	    	
-	    	String mensajeError = e.getMessage();
-	    	
-	    	ProtocolResponse respuestaError = new ProtocolResponse(
-	                ProtocolResponse.Status.FAILED, 
-	                idEnvio, 
-	                400,
-	                mensajeError
-	            );
-
-	            return respuestaError.toProtocolString();
-	    	
-	    }  
+		    }  
+		}
+		
+		return new ProtocolResponse(
+		        ProtocolResponse.Status.FAILED, 
+		        request.getId(), 
+		        404,
+		        "Comando desconocido: " + request.getName()
+		    ).toProtocolString();
 	}
 	
 	public boolean noAuthorized(String comando) {

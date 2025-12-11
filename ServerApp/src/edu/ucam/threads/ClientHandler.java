@@ -79,6 +79,12 @@ public class ClientHandler extends Thread{
 				
 				recivedLine = br.readLine();
 				
+				if (recivedLine == null) {
+		            System.out.println("Cliente desconectado (Socket cerrado).");
+		            running = false;
+		            break; // Salimos del bucle inmediatamente
+		        }
+				
 				System.out.println("Cliente: " + recivedLine);
 				
 				String response = parser.processCommand(recivedLine);

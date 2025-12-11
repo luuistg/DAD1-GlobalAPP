@@ -19,12 +19,12 @@ public class UniversityRepository {
 	private static UniversityRepository instance;
 
 	
-    private Hashtable<String, Titulacion> titulaciones;
-    private Hashtable<String, Asignatura> asignaturas;
+    public Hashtable<String, Titulacion> titulaciones;
+    public Hashtable<String, Asignatura> asignaturas;
     //private Hashtable<String, Alumno> alumnos; <-- Entrega Junio
-    private Hashtable<String, Matricula> matriculas;
+    public Hashtable<String, Matricula> matriculas;
     
-    private Hashtable<String, String> usuarios;
+    public Hashtable<String, String> usuarios;
     
     private UniversityRepository() {
         // Inicializamos las tablas

@@ -42,7 +42,12 @@ public class ClienteERP {
             try {
             	opt = Integer.parseInt(ui.showMainMenu(sc));
             	
-            	if(opt == 0) exit = true;;
+            	if(opt == 0) {
+            		exit = true;
+            		
+            		comm.sendCommand("EXIT");
+            		continue;
+            	}
             		
             	if(repoList.containsKey(opt)) {
             		getExactMethod(opt);
@@ -77,7 +82,7 @@ public class ClienteERP {
 			if(repo instanceof AsignaturaRepository) ui.showAsigOptions();
 			int key = Integer.parseInt(ui.showchooseMenu(sc));
 			
-			if(key > 5 && repo instanceof TitulacionRepository && repo instanceof AsignaturaRepository) key = -1;
+			if(key > 5 && !(repo instanceof TitulacionRepository) && !(repo instanceof AsignaturaRepository)) key = -1;
 			
 			switch(key) {
 			
