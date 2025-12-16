@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import edu.ucam.cliente.factory.ServiceFactory;
 import edu.ucam.cliente.interfaces.IChannelData;
 import edu.ucam.cliente.interfaces.IComunicationServer;
 import edu.ucam.cliente.interfaces.IUserInterface;
@@ -11,6 +12,7 @@ import edu.ucam.cliente.repository.AsignaturaRepository;
 import edu.ucam.cliente.repository.BaseRepository;
 import edu.ucam.cliente.repository.TitulacionRepository;
 import edu.ucam.cliente.interfaces.IForm;
+import edu.ucam.cliente.interfaces.IGenericService;
 
 public class ClienteERP {
 	
@@ -28,10 +30,12 @@ public class ClienteERP {
         this.comm = comm;
         this.data = data;
         this.ui = ui;
-        this.sc = new Scanner(System.in);
+        this.sc = sc;
         this.repoList = repo;
         this.formList = form;
         this.sc = sc;
+        
+        ServiceFactory.init(comm, data);
     }
 	
 	public void iniciar() {
@@ -48,13 +52,13 @@ public class ClienteERP {
             		comm.sendCommand("EXIT");
             		continue;
             	}
-            		
-            	if(repoList.containsKey(opt)) {
+            	
+            	if(ServiceFactory.getInstance().getService(opt) != null) {
             		getExactMethod(opt);
-            	}else {
+            	} else {
             		System.out.println("Opción incorrecta.");
-	
             	}
+            	
             } catch (Exception e) {
                 System.err.println("Error en la operación: " + e.getMessage());
             }
@@ -70,9 +74,12 @@ public class ClienteERP {
         
     }
 	
-	public void getExactMethod(int opt) {
+	public void getExactMethod(int opt) throws Exception {
 		
 		BaseRepository repo = repoList.get(opt);
+		
+		IGenericService<?, ?> service = ServiceFactory.getInstance().getService(opt);
+		
 		IForm form = formList.get(opt);
 		
 		try {
@@ -87,25 +94,25 @@ public class ClienteERP {
 			switch(key) {
 			
 			case 1:
-				repo.add(form.addForm(sc));
+				service.add(form.addForm(sc));
 				break;
 				
 			case 2:
-				repo.delete(null);
+				service.delete(null);
 				break;
 				
 			case 3:
-				repo.list();
+				service.list();
 				break;
 				
 			case 4:
 				String id = form.getForm(sc);
-				repo.update(id,form.updateForm(id, sc));
+				service.update(id,form.updateForm(id, sc));
 				break;
 				
 			case 5:
 				
-				repo.getModel(form.getForm(sc));
+				((IGenericService) service).get(form.getForm(sc));
 				break;
 			case 6:
 				if(repo instanceof TitulacionRepository) {

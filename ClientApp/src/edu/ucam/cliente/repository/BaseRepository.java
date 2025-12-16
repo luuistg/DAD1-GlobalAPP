@@ -14,22 +14,19 @@ public abstract class BaseRepository<T> implements IRepository<T>{
     protected IChannelData channelData;  // Canal 5001+
     protected ResponseParser parser;
     
-    protected final Class<T> type;
     protected final String cmdAdd;     
     protected final String cmdDelete;   
     protected final String cmdList;     
     protected final String cmdUpdate;   
     protected final String cmdGet;      
 
-    public BaseRepository(IComunicationServer comm, IChannelData channelData, Class<T> type, 
+    public BaseRepository(IComunicationServer comm, IChannelData channelData,
             String cmdAdd, String cmdDelete, String cmdList, 
             String cmdUpdate, String cmdGet) {
 
 		this.comm = comm;
 		this.channelData = channelData;
 		
-		// Guardamos la configuración
-		this.type = type;
 		this.cmdAdd = cmdAdd;
 		this.cmdDelete = cmdDelete;
 		this.cmdList = cmdList;
@@ -50,7 +47,7 @@ public abstract class BaseRepository<T> implements IRepository<T>{
 			comm.receiveMessage();
 			
 		}else{
-			System.out.println("Error al conectarse al servidor" + parser.getMessage());
+			System.out.println("Error: " + parser.getMessage());
 			
 		}
 	}
@@ -77,7 +74,7 @@ public abstract class BaseRepository<T> implements IRepository<T>{
 			return models;
 			
 		}else{
-			System.out.println("Error al conectarse al servidor" + parser.getMessage());
+			System.out.println("Error: " + parser.getMessage());
 			return null;
 		}
 	}
@@ -93,7 +90,7 @@ public abstract class BaseRepository<T> implements IRepository<T>{
 			comm.receiveMessage();
 			
 		}else{
-			System.out.println("Error al conectarse al servidor" + parser.getMessage());
+			System.out.println("Error:" + parser.getMessage());
 			
 		}
 		
@@ -108,13 +105,10 @@ public abstract class BaseRepository<T> implements IRepository<T>{
 			T model = (T) channelData.receiveObject(parser.getIp(), parser.getPort());
 			comm.receiveMessage();
 			
-			type.cast(model);
-			
-			System.out.println("[Recibido] -> " +  model.toString());
 			return model;
 			
 		}else{
-			System.out.println("Error al conectarse al servidor" + parser.getMessage());
+			System.out.println("Error: " + parser.getMessage());
 			return null;
 		}
 	}

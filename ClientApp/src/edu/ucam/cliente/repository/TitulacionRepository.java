@@ -12,7 +12,6 @@ public class TitulacionRepository extends BaseRepository <Titulacion>{
 
 	public TitulacionRepository(IComunicationServer comm, IChannelData channelData) {
 		super(comm, channelData, 
-	              Titulacion.class,
 	              "ADDTIT",         
 	              "DELTIT",         
 	              "LISTTIT",        
