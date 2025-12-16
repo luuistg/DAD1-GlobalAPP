@@ -5,6 +5,8 @@ import java.util.Map;
 
 import edu.ucam.data.UniversityRepository;
 import edu.ucam.interfaces.ICommand;
+import edu.ucam.logic.command.AddTitCommand;
+import edu.ucam.logic.command.GetTitCommand;
 import edu.ucam.logic.command.LogInCommand;
 import edu.ucam.logic.command.PassCommand;
 import edu.ucam.threads.ClientHandler;
@@ -32,7 +34,8 @@ public class ProtocolParser {
         comands.put("PASS", new PassCommand());
         
         // Comandos de Titulaciones
-        comands.put("ADDTIT", null);
+        comands.put("ADDTIT", new AddTitCommand());
+        comands.put("GETTIT", new GetTitCommand());
         comands.put("LISTTIT", null);
         comands.put("REMOVETIT", null);
         

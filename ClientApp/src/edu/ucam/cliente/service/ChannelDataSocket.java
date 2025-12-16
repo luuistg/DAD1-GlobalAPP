@@ -9,28 +9,32 @@ import edu.ucam.cliente.interfaces.IChannelData;
 
 public class ChannelDataSocket implements IChannelData{
 	
-	private Socket socket;
-	private ObjectInputStream ois;
-	private ObjectOutputStream oos;
-
 	@Override
-	public void sendObject(String ip, int port, Object model) throws IOException, ClassNotFoundException {
-		connect(ip, port);		
-		oos.writeObject(model);
-	}
+    public void sendObject(String ip, int port, Object model) throws IOException {
+        System.out.println("> Conectando para enviar a " + ip + ":" + port);
 
-	@Override
-	public Object receiveObject(String ip, int port) throws IOException, ClassNotFoundException{
-		connect(ip, port);
-		return ois.readObject();
-	}
-	
-	private void connect(String ip, int port) throws IOException, ClassNotFoundException{
-		
-		this.socket = new Socket(ip, port);
-		this.ois = new ObjectInputStream(socket.getInputStream());
-		this.oos = new ObjectOutputStream(socket.getOutputStream());
-		
-	}
+        try (Socket s = new Socket(ip, port);
+             ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream())) {
+
+            oos.writeObject(model);
+            oos.flush();
+            System.out.println("> Objeto enviado correctamente.");
+            
+        }
+    }
+
+    @Override
+    public Object receiveObject(String ip, int port) throws IOException, ClassNotFoundException {
+        System.out.println("> Conectando para recibir de " + ip + " : " + port);
+
+        try (Socket s = new Socket(ip, port);
+             ObjectInputStream ois = new ObjectInputStream(s.getInputStream())) {
+
+            Object recibido = ois.readObject();
+            System.out.println("> Objeto recibido correctamente.");
+            return recibido;
+
+        }
+    }
 
 }

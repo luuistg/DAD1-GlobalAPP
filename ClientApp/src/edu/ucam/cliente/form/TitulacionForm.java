@@ -1,25 +1,32 @@
 package edu.ucam.cliente.form;
 
+import java.util.Scanner;
+
 import edu.ucam.cliente.interfaces.IForm;
 import edu.ucam.domain.Titulacion;
 
-public class TitulacionForm implements IForm{
+public class TitulacionForm extends GenericForm{
 
 	@Override
-	public Titulacion addForm() {
-		return null;
-		// TODO Auto-generated method stub
+	public Titulacion addForm(Scanner sc) {
 		
+		System.out.println("\n--- REGISTRO DE NUEVA TITULACIÓN ---");
+
+        String id = pedirTextoNoVacio(sc, "Introduce el ID: ");
+
+        String nombre = pedirTextoNoVacio(sc, "Introduce el Nombre: ");
+
+        return new Titulacion(id, nombre, null);
 	}
 
 	@Override
-	public String getForm() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getForm(Scanner sc) {
+		String id = pedirTextoNoVacio(sc, "Introduce el ID: ");
+		return id;
 	}
 
 	@Override
-	public Object updateForm(String id) {
+	public Object updateForm(String id, Scanner sc) {
 		// TODO Auto-generated method stub
 		return null;
 	}

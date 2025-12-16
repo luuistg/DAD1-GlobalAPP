@@ -89,6 +89,8 @@ public class ClientHandler extends Thread{
 				
 				String response = parser.processCommand(recivedLine);
 				
+				System.out.println(response);
+				
 				pw.println(response); pw.flush();
 				
 				if (!running) break;
@@ -111,6 +113,12 @@ public class ClientHandler extends Thread{
 	public void stopHandler() {
         this.running = false;
     }
+	
+	public synchronized void sendFinalMSG(String msg) {
+		
+		pw.println(msg); pw.flush();
+		
+	}
 	
 	private void closeSesion() {
         try {

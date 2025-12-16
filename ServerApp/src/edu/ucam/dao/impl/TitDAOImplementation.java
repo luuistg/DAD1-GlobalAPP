@@ -18,8 +18,9 @@ public class TitDAOImplementation implements TitulacionDAO{
 
 	@Override
 	public Titulacion buscar(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return db.titulaciones.get(id);
+		
 	}
 
 	@Override
@@ -30,7 +31,7 @@ public class TitDAOImplementation implements TitulacionDAO{
 
 	@Override
 	public void guardar(Titulacion t) {
-		// TODO Auto-generated method stub
+		db.titulaciones.put(t.getId().trim(), t);
 		
 	}
 

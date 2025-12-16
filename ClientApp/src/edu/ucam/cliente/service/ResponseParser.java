@@ -36,8 +36,8 @@ public class ResponseParser {
 			this.msg = msgBuilder.toString().trim();
 			
 			if (response.startsWith("PREOK")) {
-				this.ip =  parts[4];
-				this.port =  Integer.parseInt(parts[3]);
+				this.ip =  parts[3];
+				this.port =  Integer.parseInt(parts[4]);
 			}
 			
 		}

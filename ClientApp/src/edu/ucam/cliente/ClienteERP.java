@@ -87,7 +87,7 @@ public class ClienteERP {
 			switch(key) {
 			
 			case 1:
-				repo.add(form.addForm());
+				repo.add(form.addForm(sc));
 				break;
 				
 			case 2:
@@ -99,12 +99,13 @@ public class ClienteERP {
 				break;
 				
 			case 4:
-				String id = form.getForm();
-				repo.update(id,form.updateForm(id));
+				String id = form.getForm(sc);
+				repo.update(id,form.updateForm(id, sc));
 				break;
 				
 			case 5:
-				repo.getModel(form.getForm());
+				
+				repo.getModel(form.getForm(sc));
 				break;
 			case 6:
 				if(repo instanceof TitulacionRepository) {
@@ -128,6 +129,7 @@ public class ClienteERP {
 			
 		}catch(IOException | ClassNotFoundException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 }

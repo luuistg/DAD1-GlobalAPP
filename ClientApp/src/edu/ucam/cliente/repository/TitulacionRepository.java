@@ -11,39 +11,16 @@ import edu.ucam.domain.Titulacion;
 public class TitulacionRepository extends BaseRepository <Titulacion>{
 
 	public TitulacionRepository(IComunicationServer comm, IChannelData channelData) {
-		super(comm, channelData);
-		// TODO Auto-generated constructor stub
+		super(comm, channelData, 
+	              Titulacion.class,
+	              "ADDTIT",         
+	              "DELTIT",         
+	              "LISTTIT",        
+	              "UPDATETIT",         
+	              "GETTIT"          
+	        );
 	}
 
-	@Override
-	protected String getAddCommand() {
-		// TODO Auto-generated method stub
-		return "ADDTIT";
-	}
-
-	@Override
-	protected String getDeleteCommand() {
-		// TODO Auto-generated method stub
-		return "GETTIT";
-	}
-
-	@Override
-	protected String getListCommand() {
-		// TODO Auto-generated method stub
-		return "LISTTIT";
-	}
-
-	@Override
-	protected String getUpdateCommand() {
-		// TODO Auto-generated method stub
-		return "UPDATETIT";
-	}
-
-	@Override
-	protected String getGetCommand() {
-		// TODO Auto-generated method stub
-		return "GETTIT";
-	}
 	
 	public void modelSize() throws NullResponseException, IOException {
 		
