@@ -29,7 +29,8 @@ public class TitulacionService implements IGenericService<Titulacion, String>{
 	@Override
 	public void get(String id) throws Exception {
 		
-		this.toString((Titulacion) repo.getModel(id));
+		Titulacion t = (Titulacion) repo.getModel(id);	
+		if (t != null) this.toString(t);
 	}
 
 	@Override
@@ -40,9 +41,14 @@ public class TitulacionService implements IGenericService<Titulacion, String>{
 	@Override
 	public void list() throws Exception {
 		
+		List<Titulacion> list = (List<Titulacion>) repo.list();
 		
-		for(Titulacion t : (List<Titulacion>) repo.list()) {
-			toString(t);
+		if(list.isEmpty()) {
+			System.out.println("No Hay Titulaciones añadidas a la univerisdad");
+		} else {
+			for(Titulacion t : list) {
+				toString(t);
+			}
 		}
 	}
 	
