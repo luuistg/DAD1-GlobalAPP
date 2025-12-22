@@ -27,8 +27,9 @@ public class TitulacionForm extends GenericForm{
 
 	@Override
 	public Object updateForm(String id, Scanner sc) {
-		// TODO Auto-generated method stub
-		return null;
+		String nombre = pedirTextoNoVacio(sc, "Introduce el Nombre: ");
+		return new Titulacion(id, nombre, null);
+
 	}
 	
 

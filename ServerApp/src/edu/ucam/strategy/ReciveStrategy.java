@@ -4,7 +4,6 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.function.Consumer;
 
-import edu.ucam.interfaces.GenericDAO;
 import edu.ucam.interfaces.IDataStrategy;
 
 public class ReciveStrategy<T> implements IDataStrategy {

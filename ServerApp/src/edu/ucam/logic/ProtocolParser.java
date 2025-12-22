@@ -12,6 +12,7 @@ import edu.ucam.logic.command.tit.CountTitsCommand;
 import edu.ucam.logic.command.tit.GetTitCommand;
 import edu.ucam.logic.command.tit.ListTitCommand;
 import edu.ucam.logic.command.tit.RemoveTitCommand;
+import edu.ucam.logic.command.tit.UpdateTitCommand;
 import edu.ucam.threads.ClientHandler;
 
 public class ProtocolParser {
@@ -42,6 +43,7 @@ public class ProtocolParser {
         comands.put("LISTTIT", new ListTitCommand());
         comands.put("REMOVETIT", new RemoveTitCommand());
         comands.put("COUNTTIT", new CountTitsCommand());
+        comands.put("UPDATETIT", new UpdateTitCommand());
         
         
         // Comandos de Asignaturas

@@ -48,6 +48,15 @@ public class TitDAOImplementation implements TitulacionDAO{
 		
 		return db.titulaciones.size();
 	}
+
+	@Override
+	public void actualizar(Titulacion t) {
+		
+		if(!db.titulaciones.containsKey(t.getId())) return;
+		
+		db.titulaciones.put(t.getId(), t);
+		return;
+	}
     
     
 

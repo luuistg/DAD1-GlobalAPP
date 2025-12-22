@@ -53,4 +53,10 @@ public class AsigDAOImplementation implements AsignaturaDAO{
 		
 	}
 
+	@Override
+	public void actualizar(Asignatura t) {
+		// TODO Auto-generated method stub
+		return;
+	}
+
 }

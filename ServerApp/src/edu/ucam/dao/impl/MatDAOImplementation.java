@@ -35,4 +35,10 @@ public class MatDAOImplementation implements MatriculaDAO{
 		return null;
 	}
 
+	@Override
+	public void actualizar(Matricula t) {
+		// TODO Auto-generated method stub
+		return;
+	}
+
 }
