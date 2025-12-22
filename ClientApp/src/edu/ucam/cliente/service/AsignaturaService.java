@@ -1,53 +1,50 @@
-package edu.ucam.dao.impl;
+package edu.ucam.cliente.service;
 
-import java.util.List;
-
-import edu.ucam.data.UniversityRepository;
+import edu.ucam.cliente.interfaces.IGenericService;
 import edu.ucam.domain.Asignatura;
-import edu.ucam.interfaces.AsignaturaDAO;
 
-public class AsigDAOImplementation implements AsignaturaDAO{
-	
-	private UniversityRepository db = UniversityRepository.getInstance();
+public class AsignaturaService implements IGenericService<Asignatura, String>{
 
 	@Override
-	public void guardar(Asignatura t) {
+	public void add(Object object) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public boolean  eliminar(String id) {
-		return false;
+	public void delete(String id) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Asignatura buscar(String id) {
+	public void get(String id) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public List<Asignatura> listar() {
+	public void update(String id, Object model) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
+	public void list() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void addAsigToTit() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void removeAsigToTit() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void listAsigFromTit() {
 		// TODO Auto-generated method stub
 		

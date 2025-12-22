@@ -5,10 +5,13 @@ import java.util.Map;
 
 import edu.ucam.data.UniversityRepository;
 import edu.ucam.interfaces.ICommand;
-import edu.ucam.logic.command.AddTitCommand;
-import edu.ucam.logic.command.GetTitCommand;
 import edu.ucam.logic.command.LogInCommand;
 import edu.ucam.logic.command.PassCommand;
+import edu.ucam.logic.command.tit.AddTitCommand;
+import edu.ucam.logic.command.tit.CountTitsCommand;
+import edu.ucam.logic.command.tit.GetTitCommand;
+import edu.ucam.logic.command.tit.ListTitCommand;
+import edu.ucam.logic.command.tit.RemoveTitCommand;
 import edu.ucam.threads.ClientHandler;
 
 public class ProtocolParser {
@@ -36,8 +39,10 @@ public class ProtocolParser {
         // Comandos de Titulaciones
         comands.put("ADDTIT", new AddTitCommand());
         comands.put("GETTIT", new GetTitCommand());
-        comands.put("LISTTIT", null);
-        comands.put("REMOVETIT", null);
+        comands.put("LISTTIT", new ListTitCommand());
+        comands.put("REMOVETIT", new RemoveTitCommand());
+        comands.put("COUNTTIT", new CountTitsCommand());
+        
         
         // Comandos de Asignaturas
         comands.put("ADDASIG", null);

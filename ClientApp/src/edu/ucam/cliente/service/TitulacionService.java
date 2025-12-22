@@ -46,6 +46,11 @@ public class TitulacionService implements IGenericService<Titulacion, String>{
 		}
 	}
 	
+	public void count() throws Exception{
+		
+		repo.modelSize();
+	}
+	
 	public void toString(Titulacion t) {
 		
 		System.out.println("Titulacion: " + System.lineSeparator()

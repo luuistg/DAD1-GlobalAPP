@@ -8,9 +8,9 @@ import edu.ucam.cliente.factory.ServiceFactory;
 import edu.ucam.cliente.interfaces.IChannelData;
 import edu.ucam.cliente.interfaces.IComunicationServer;
 import edu.ucam.cliente.interfaces.IUserInterface;
-import edu.ucam.cliente.repository.AsignaturaRepository;
 import edu.ucam.cliente.repository.BaseRepository;
-import edu.ucam.cliente.repository.TitulacionRepository;
+import edu.ucam.cliente.service.AsignaturaService;
+import edu.ucam.cliente.service.TitulacionService;
 import edu.ucam.cliente.interfaces.IForm;
 import edu.ucam.cliente.interfaces.IGenericService;
 
@@ -21,17 +21,15 @@ public class ClienteERP {
     private IUserInterface ui;
     
     @SuppressWarnings("rawtypes")
-	HashMap<Integer, BaseRepository> repoList = new HashMap<>();
     HashMap<Integer, IForm> formList = new HashMap<>();
     
 	Scanner sc;
 	
-	public ClienteERP(IComunicationServer comm, IChannelData data, IUserInterface ui, HashMap repo, HashMap form, Scanner sc) {
+	public ClienteERP(IComunicationServer comm, IChannelData data, IUserInterface ui, HashMap form, Scanner sc) {
         this.comm = comm;
         this.data = data;
         this.ui = ui;
         this.sc = sc;
-        this.repoList = repo;
         this.formList = form;
         this.sc = sc;
         
@@ -76,8 +74,6 @@ public class ClienteERP {
 	
 	public void getExactMethod(int opt) throws Exception {
 		
-		BaseRepository repo = repoList.get(opt);
-		
 		IGenericService<?, ?> service = ServiceFactory.getInstance().getService(opt);
 		
 		IForm form = formList.get(opt);
@@ -85,11 +81,17 @@ public class ClienteERP {
 		try {
 			
 			ui.showOptMenu();
-			if(repo instanceof TitulacionRepository) ui.showTitOption();
-			if(repo instanceof AsignaturaRepository) ui.showAsigOptions();
+			if(service instanceof TitulacionService) ui.showTitOption();
+			if(service instanceof AsignaturaService) ui.showAsigOptions();
+			
 			int key = Integer.parseInt(ui.showchooseMenu(sc));
 			
-			if(key > 5 && !(repo instanceof TitulacionRepository) && !(repo instanceof AsignaturaRepository)) key = -1;
+			if (service instanceof TitulacionService && key > 6) {
+			    key = -1;
+			} 
+			else if (service instanceof AsignaturaService && key > 8) {
+			    key = -1;
+			}
 			
 			switch(key) {
 			
@@ -98,7 +100,7 @@ public class ClienteERP {
 				break;
 				
 			case 2:
-				service.delete(null);
+				service.delete(form.getForm(sc));
 				break;
 				
 			case 3:
@@ -112,19 +114,22 @@ public class ClienteERP {
 				
 			case 5:
 				
-				((IGenericService) service).get(form.getForm(sc));
+				service.get(form.getForm(sc));
 				break;
+				
 			case 6:
-				if(repo instanceof TitulacionRepository) {
-					((TitulacionRepository) repo).modelSize();
+				if(service instanceof TitulacionService) {
+					((TitulacionService) service).count();
+				} 
+				else{
+					((AsignaturaService) service).addAsigToTit();
 				}
-				((AsignaturaRepository) repo).addAsigToTit();
 				break;
 			case 7:
-				((AsignaturaRepository) repo).removeAsigToTit();
+				((AsignaturaService) service).removeAsigToTit();
 				break;
 			case 8:
-				((AsignaturaRepository) repo).listAsigFromTit();
+				((AsignaturaService) service).listAsigFromTit();
 				break;
 			case 0:
 				

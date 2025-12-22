@@ -13,7 +13,7 @@ public class TitulacionRepository extends BaseRepository <Titulacion>{
 	public TitulacionRepository(IComunicationServer comm, IChannelData channelData) {
 		super(comm, channelData, 
 	              "ADDTIT",         
-	              "DELTIT",         
+	              "REMOVETIT",         
 	              "LISTTIT",        
 	              "UPDATETIT",         
 	              "GETTIT"          

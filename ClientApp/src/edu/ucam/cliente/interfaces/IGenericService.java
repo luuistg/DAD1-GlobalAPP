@@ -8,7 +8,7 @@ public interface IGenericService <T, K>{
 	    
 	    void add(Object object) throws Exception;
 	    
-	    void delete(K id) throws Exception;
+	    void delete(String id) throws Exception;
 	    
 	    void get(String id) throws Exception;
 	    

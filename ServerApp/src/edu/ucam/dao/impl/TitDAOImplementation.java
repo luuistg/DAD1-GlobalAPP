@@ -1,5 +1,6 @@
 package edu.ucam.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucam.data.UniversityRepository;
@@ -11,9 +12,12 @@ public class TitDAOImplementation implements TitulacionDAO{
 	private UniversityRepository db = UniversityRepository.getInstance();
 
 	@Override
-	public void eliminar(String id) {
-		// TODO Auto-generated method stub
+	public boolean eliminar(String id) {
+		db.titulaciones.remove(id);
 		
+		if(!db.titulaciones.containsKey(id)) return true;
+		
+		return false;
 	}
 
 	@Override
@@ -25,8 +29,12 @@ public class TitDAOImplementation implements TitulacionDAO{
 
 	@Override
 	public List listar() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (db.titulaciones.isEmpty()) {
+            return new ArrayList<>();
+        }
+        // Creamos una copia nueva para enviar
+        return new ArrayList<>(db.titulaciones.values());
 	}
 
 	@Override
@@ -37,8 +45,8 @@ public class TitDAOImplementation implements TitulacionDAO{
 
 	@Override
 	public int modelSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return db.titulaciones.size();
 	}
     
     

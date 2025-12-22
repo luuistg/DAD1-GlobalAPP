@@ -33,11 +33,10 @@ public class ClientePrincipal {
             	System.exit(0);
             	
             }
-
-            var mapRepos = ClientConfig.initRepositories(comm, data);
+            
             var mapForms = ClientConfig.initForms();
 
-            ClienteERP app = new ClienteERP(comm, data, ui, mapRepos, mapForms, sc);
+            ClienteERP app = new ClienteERP(comm, data, ui, mapForms, sc);
             
             app.iniciar();
 

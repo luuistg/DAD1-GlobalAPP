@@ -1,15 +1,18 @@
-package edu.ucam.logic.command;
+package edu.ucam.logic.command.tit;
+
+import java.util.function.Consumer;
 
 import edu.ucam.dao.DAOFactory;
+import edu.ucam.domain.Titulacion;
 import edu.ucam.interfaces.ICommand;
 import edu.ucam.interfaces.TitulacionDAO;
 import edu.ucam.logic.CommandParser;
 import edu.ucam.logic.ProtocolResponse;
-import edu.ucam.strategy.SendStrategy;
+import edu.ucam.strategy.ReciveStrategy;
 import edu.ucam.threads.ClientHandler;
 import edu.ucam.threads.DataConection;
 
-public class GetTitCommand implements ICommand{
+public class AddTitCommand implements ICommand{
 
 	@Override
 	public String execute(CommandParser cp, ClientHandler cl) {
@@ -17,16 +20,9 @@ public class GetTitCommand implements ICommand{
 			
 			TitulacionDAO dao = DAOFactory.getInstance().getTitulacionDAO();
 			
-			if(dao.buscar(cp.getParam(0)) == null) {
-					return new ProtocolResponse(
-	    	        ProtocolResponse.Status.FAILED, 
-	    	        cp.getId(), 
-	    	        404, 
-	    	        "Titutlacion con id: " + cp.getParam(0) + " no encontrada"
-					).toProtocolString();
-			}
+			Consumer<Titulacion> action = (t) -> dao.guardar(t);
 			
-			SendStrategy strategy = new SendStrategy(dao.buscar(cp.getParam(0)));
+			ReciveStrategy<Titulacion> strategy = new ReciveStrategy<>(action);
 			
 			//DEFINIMOS LOS CALLBACKS
             
@@ -50,15 +46,15 @@ public class GetTitCommand implements ICommand{
 			
 			DataConection hilo = new DataConection(strategy, onSuccess, onError);
 			
-			hilo.start();
-			
+			 hilo.start();
+			 
 			return new ProtocolResponse(
 	    	        ProtocolResponse.Status.PREOK, 
 	    	        cp.getId(), 
-	    	        200, 
+	    	        202, 
 	    	        hilo.getIp() + " " + hilo.getPort()
 					).toProtocolString();
-			
+			 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,7 +63,7 @@ public class GetTitCommand implements ICommand{
     	        ProtocolResponse.Status.FAILED, 
     	        cp.getId(), 
     	        500, 
-    	        "Error al enviar la Titulación"
+    	        "No se pudo agregar la Titulacion."
 				).toProtocolString();
 	}
 

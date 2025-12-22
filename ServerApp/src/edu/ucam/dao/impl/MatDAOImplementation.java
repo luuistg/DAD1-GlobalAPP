@@ -17,7 +17,8 @@ public class MatDAOImplementation implements MatriculaDAO{
 	}
 
 	@Override
-	public void eliminar(String id) {
+	public boolean eliminar(String id) {
+		return false;
 		// TODO Auto-generated method stub
 		
 	}
