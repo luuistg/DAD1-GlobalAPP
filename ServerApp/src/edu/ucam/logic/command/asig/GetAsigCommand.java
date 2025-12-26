@@ -1,28 +1,28 @@
-package edu.ucam.logic.command.matricula;
+package edu.ucam.logic.command.asig;
 
 import edu.ucam.dao.DAOFactory;
 import edu.ucam.interfaces.ICommand;
-import edu.ucam.interfaces.MatriculaDAO;
+import edu.ucam.interfaces.AsignaturaDAO;
 import edu.ucam.logic.CommandParser;
 import edu.ucam.logic.ProtocolResponse;
 import edu.ucam.strategy.SendStrategy;
 import edu.ucam.threads.ClientHandler;
 import edu.ucam.threads.DataConection;
 
-public class GetMatCommand implements ICommand{
+public class GetAsigCommand implements ICommand{
 
 	@Override
 	public String execute(CommandParser cp, ClientHandler cl) {
-			try {
+		try {
 			
-			MatriculaDAO dao = DAOFactory.getInstance().getMatriculaDAO();
+			AsignaturaDAO dao = DAOFactory.getInstance().getAsignaturaDAO();
 			
 			if(dao.buscar(cp.getParam(0)) == null) {
 					return new ProtocolResponse(
 	    	        ProtocolResponse.Status.FAILED, 
 	    	        cp.getId(), 
 	    	        404, 
-	    	        "Matricula con id: " + cp.getParam(0) + " no encontrada"
+	    	        "Asignatura con id: " + cp.getParam(0) + " no encontrada"
 					).toProtocolString();
 			}
 			
@@ -35,7 +35,7 @@ public class GetMatCommand implements ICommand{
     	    	        ProtocolResponse.Status.OK, 
     	    	        cp.getId(), 
     	    	        200, 
-    	    	        "Matricula enviada correctamente"
+    	    	        "Asignatura enviada correctamente"
     					).toProtocolString());
             };
             
@@ -67,7 +67,7 @@ public class GetMatCommand implements ICommand{
     	        ProtocolResponse.Status.FAILED, 
     	        cp.getId(), 
     	        500, 
-    	        "Error al enviar la Matricula"
+    	        "Error al enviar la Asignatura"
 				).toProtocolString();
 	}
 

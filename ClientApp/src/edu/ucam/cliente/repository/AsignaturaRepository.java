@@ -9,7 +9,7 @@ public class AsignaturaRepository extends BaseRepository <Asignatura>{
 	public AsignaturaRepository(IComunicationServer comm, IChannelData channelData) {
 		super(comm, channelData, 
 	              "ADDASIG",         
-	              "DELASIG",         
+	              "REMOVEASIG",         
 	              "LISTASIG",        
 	              "UPDATEASIG",         
 	              "GETASIG"          

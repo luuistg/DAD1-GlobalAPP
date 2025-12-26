@@ -19,15 +19,17 @@ public class AsigDAOImplementation implements AsignaturaDAO{
 
 	@Override
 	public boolean  eliminar(String id) {
+		db.asignaturas.remove(id);
+		
+		if(!db.titulaciones.containsKey(id)) return true;
+		
 		return false;
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Asignatura buscar(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return db.asignaturas.get(id);
 	}
 
 	@Override
@@ -60,7 +62,9 @@ public class AsigDAOImplementation implements AsignaturaDAO{
 
 	@Override
 	public void actualizar(Asignatura t) {
-		// TODO Auto-generated method stub
+		if(!db.asignaturas.containsKey(t.getId())) return;
+		
+		db.asignaturas.put(t.getId(), t);
 		return;
 	}
 

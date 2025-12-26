@@ -1,18 +1,17 @@
-package edu.ucam.logic.command.matricula;
+package edu.ucam.logic.command.asig;
 
 import edu.ucam.dao.DAOFactory;
 import edu.ucam.interfaces.ICommand;
-import edu.ucam.interfaces.MatriculaDAO;
+import edu.ucam.interfaces.AsignaturaDAO;
 import edu.ucam.logic.CommandParser;
 import edu.ucam.logic.ProtocolResponse;
 import edu.ucam.threads.ClientHandler;
 
-public class RemoveMatCommand implements ICommand{
+public class RemoveAsigCommand implements ICommand{
 
 	@Override
 	public String execute(CommandParser cp, ClientHandler cl) {
-		
-		MatriculaDAO dao = DAOFactory.getInstance().getMatriculaDAO();
+		AsignaturaDAO dao = DAOFactory.getInstance().getAsignaturaDAO();
 		
 		if(dao.eliminar(cp.getParam(0))) {
 			
@@ -20,7 +19,7 @@ public class RemoveMatCommand implements ICommand{
 	    	        ProtocolResponse.Status.OK, 
 	    	        cp.getId(), 
 	    	        204, 
-	    	        "Matricula Eliminada Corectamente."
+	    	        "AsignaturaDAO Eliminada Corectamente."
 					).toProtocolString();
 		}
 		
@@ -30,6 +29,7 @@ public class RemoveMatCommand implements ICommand{
     	        404, 
     	        "El objeto a elimiar no existe"
 				).toProtocolString();
+
 	}
 
 }

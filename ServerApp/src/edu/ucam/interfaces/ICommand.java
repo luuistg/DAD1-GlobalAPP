@@ -2,7 +2,6 @@ package edu.ucam.interfaces;
 
 import edu.ucam.logic.CommandParser;
 import edu.ucam.threads.ClientHandler;
-import edu.ucam.threads.DataConection;
 
 public interface ICommand {
 	

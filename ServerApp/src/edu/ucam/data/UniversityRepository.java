@@ -1,9 +1,6 @@
 package edu.ucam.data;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-
 import edu.ucam.domain.Asignatura;
 import edu.ucam.domain.Matricula;
 import edu.ucam.domain.Titulacion;

@@ -69,11 +69,12 @@ public class MatriculaService implements IGenericService<Matricula, String>{
 				+ "Alumno: " + t.getAlumno().getNombre() +  " " + t.getAlumno().getApellidos() + System.lineSeparator()
 				+ "Asignaturas: "
 				);
-		for (Asignatura a : t.getAsignaturas()) {
-			System.out.println("ID: " + a.getId() + ", " + a.getNombre() + " nº de Creditos: " + a.getCreditos());
-		}
 		
-		
+		if(t.getAsignaturas() != null) {
+			for (Asignatura a : t.getAsignaturas()) {
+				System.out.println("ID: " + a.getId() + ", " + a.getNombre() + " nº de Creditos: " + a.getCreditos());
+			}
+		}	
 	}
 
 }
