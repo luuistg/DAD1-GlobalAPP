@@ -2,7 +2,6 @@ package edu.ucam.cliente.form;
 
 import java.util.Scanner;
 
-import edu.ucam.cliente.interfaces.IForm;
 import edu.ucam.domain.Titulacion;
 
 public class TitulacionForm extends GenericForm{

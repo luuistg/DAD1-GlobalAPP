@@ -8,8 +8,8 @@ import edu.ucam.cliente.factory.ServiceFactory;
 import edu.ucam.cliente.interfaces.IChannelData;
 import edu.ucam.cliente.interfaces.IComunicationServer;
 import edu.ucam.cliente.interfaces.IUserInterface;
-import edu.ucam.cliente.repository.BaseRepository;
 import edu.ucam.cliente.service.AsignaturaService;
+import edu.ucam.cliente.service.MatriculaService;
 import edu.ucam.cliente.service.TitulacionService;
 import edu.ucam.cliente.interfaces.IForm;
 import edu.ucam.cliente.interfaces.IGenericService;
@@ -20,7 +20,6 @@ public class ClienteERP {
     private IChannelData data;
     private IUserInterface ui;
     
-    @SuppressWarnings("rawtypes")
     HashMap<Integer, IForm> formList = new HashMap<>();
     
 	Scanner sc;
@@ -92,6 +91,9 @@ public class ClienteERP {
 			else if (service instanceof AsignaturaService && key > 8) {
 			    key = -1;
 			}
+			else if (service instanceof MatriculaService && key > 4) {
+			    key = -1; 
+			}
 			
 			switch(key) {
 			
@@ -104,17 +106,17 @@ public class ClienteERP {
 				break;
 				
 			case 3:
-				service.list();
-				break;
-				
-			case 4:
 				String id = form.getForm(sc);
 				service.update(id,form.updateForm(id, sc));
 				break;
 				
-			case 5:
+			case 4:
 				
 				service.get(form.getForm(sc));
+				break;
+				
+			case 5:
+				service.list();
 				break;
 				
 			case 6:

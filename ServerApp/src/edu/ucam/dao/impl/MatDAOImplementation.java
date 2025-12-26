@@ -11,34 +11,40 @@ public class MatDAOImplementation implements MatriculaDAO{
 	private UniversityRepository db = UniversityRepository.getInstance();
 
 	@Override
-	public void guardar(Matricula t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public boolean eliminar(String id) {
-		return false;
-		// TODO Auto-generated method stub
+		db.titulaciones.remove(id);
 		
+		if(!db.matriculas.containsKey(id)) return true;
+		
+		return false;
 	}
 
 	@Override
 	public Matricula buscar(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return db.matriculas.get(id);
+		
+	}
+
+	@Override
+	public void guardar(Matricula t) {
+		db.matriculas.put(t.getId().trim(), t);
+		
+	}
+
+	@Override
+	public void actualizar(Matricula t) {
+		
+		if(!db.matriculas.containsKey(t.getId())) return;
+		
+		db.matriculas.put(t.getId(), t);
+		return;
 	}
 
 	@Override
 	public List<Matricula> listar() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void actualizar(Matricula t) {
-		// TODO Auto-generated method stub
-		return;
 	}
 
 }

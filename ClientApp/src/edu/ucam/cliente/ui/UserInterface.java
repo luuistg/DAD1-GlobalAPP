@@ -27,16 +27,17 @@ public class UserInterface implements IUserInterface{
 		System.out.println("\n--- QUE DESEA HACER  ---");
         System.out.println("1. AÑADIR");
         System.out.println("2. ELIMINAR");
-        System.out.println("3. LISTAR");
-        System.out.println("4. MODIFICAR");
-        System.out.println("5. RECUPERAR POR ID"); 
+        System.out.println("3. MODIFICAR");
+        System.out.println("4. RECUPERAR POR ID"); 
 	}
 	
 	public void showTitOption() {
+        System.out.println("5. LISTAR");
 		System.out.println("6. Numero de Titulaciones");
 	}
 	
 	public void showAsigOptions() {
+        System.out.println("5. LISTAR");
 		System.out.println("6. AÑADIR ASIGNATURA A TITULACION");
         System.out.println("7. ELIMINAR ASIGNATURA DE TITULACION");
         System.out.println("8. LISTAR ASIGNATURAS DE TITULACION");

@@ -1,9 +1,5 @@
 package edu.ucam.cliente.interfaces;
 
-import java.util.List;
-
-import edu.ucam.domain.Titulacion;
-
 public interface IGenericService <T, K>{
 	    
 	    void add(Object object) throws Exception;

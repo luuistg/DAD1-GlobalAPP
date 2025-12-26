@@ -1,9 +1,16 @@
 package edu.ucam.cliente.service;
 
 import edu.ucam.cliente.interfaces.IGenericService;
+import edu.ucam.cliente.repository.AsignaturaRepository;
 import edu.ucam.domain.Asignatura;
 
 public class AsignaturaService implements IGenericService<Asignatura, String>{
+	
+	private AsignaturaRepository repo;
+
+    public AsignaturaService(AsignaturaRepository repo) {
+        this.repo = repo;
+    }
 
 	@Override
 	public void add(Object object) throws Exception {

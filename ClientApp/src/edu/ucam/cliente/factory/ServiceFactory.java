@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import edu.ucam.cliente.interfaces.*;
 import edu.ucam.cliente.repository.*;
+import edu.ucam.cliente.service.AsignaturaService;
+import edu.ucam.cliente.service.MatriculaService;
 import edu.ucam.cliente.service.TitulacionService;
 
 public class ServiceFactory {
@@ -30,19 +32,15 @@ public class ServiceFactory {
     private void cargarServicios() {
         TitulacionRepository repoTit = new TitulacionRepository(comm, data);
         TitulacionService servTit = new TitulacionService(repoTit);
-        servCache.put(1, (IGenericService<?, ?>) servTit); 
-
-        /*
+        servCache.put(1, servTit); 
+        
+        MatriculaRepository repoMat = new MatriculaRepository(comm, data);
+        MatriculaService servMat = new MatriculaService(repoMat);
+        servCache.put(2, servMat);
+        
         AsignaturaRepository repoAsig = new AsignaturaRepository(comm, data);
         AsignaturaService servAsig = new AsignaturaService(repoAsig);
-        servache.put("2", servAsig);
-        */
-        
-        /*
-        MatriculaRepository repoMat = new MatriculaRepository(comm, data);
-        MatriculaService servMat = new MatriculaService(repoAsig);
-        servCache.put("2", servAsig);
-        */
+        servCache.put(3, servAsig);
         
     }
 

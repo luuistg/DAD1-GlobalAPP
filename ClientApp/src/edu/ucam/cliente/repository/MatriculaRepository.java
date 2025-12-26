@@ -8,13 +8,12 @@ public class MatriculaRepository extends BaseRepository <Matricula>{
 
 	public MatriculaRepository(IComunicationServer comm, IChannelData channelData) {
 		super(comm, channelData, 
+				"ADDMATRICULA", 
+				"REMOVEMATRICULA", 
 				"", 
-				"", 
-				"", 
-				"",
-				""
+				"UPDATEMATRICULA",
+				"GETMATRICULA"
 				);
-		// TODO Auto-generated constructor stub
 	}
 
 }

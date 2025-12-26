@@ -3,10 +3,13 @@ package edu.ucam.logic;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.ucam.data.UniversityRepository;
 import edu.ucam.interfaces.ICommand;
 import edu.ucam.logic.command.LogInCommand;
 import edu.ucam.logic.command.PassCommand;
+import edu.ucam.logic.command.matricula.AddMatCommand;
+import edu.ucam.logic.command.matricula.GetMatCommand;
+import edu.ucam.logic.command.matricula.RemoveMatCommand;
+import edu.ucam.logic.command.matricula.UpdateMatCommand;
 import edu.ucam.logic.command.tit.AddTitCommand;
 import edu.ucam.logic.command.tit.CountTitsCommand;
 import edu.ucam.logic.command.tit.GetTitCommand;
@@ -48,6 +51,13 @@ public class ProtocolParser {
         
         // Comandos de Asignaturas
         comands.put("ADDASIG", null);
+        
+        // Comandos de Matriculas
+        comands.put("ADDMATRICULA", new AddMatCommand());
+        comands.put("GETMATRICULA", new GetMatCommand());
+        comands.put("REMOVEMATRICULA", new RemoveMatCommand());
+        comands.put("UPDATEMATRICULA", new UpdateMatCommand());
+        
     }
 	
 	public String processCommand(String recivedLine) {
