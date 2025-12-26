@@ -1,15 +1,18 @@
 package edu.ucam.cliente.form;
 
+import java.util.Hashtable;
 import java.util.Scanner;
 
+import edu.ucam.cliente.factory.ServiceFactory;
+import edu.ucam.cliente.service.AsignaturaService;
 import edu.ucam.domain.Alumno;
 import edu.ucam.domain.Matricula;
-import edu.ucam.domain.Titulacion;
+import edu.ucam.domain.Asignatura;
 
 public class MatriculaForm extends GenericForm{
 
 	@Override
-	public Matricula addForm(Scanner sc) {
+	public Matricula addForm(Scanner sc){
 		
 		System.out.println("\n--- REGISTRO DE NUEVA MATRICULA ---");
 
@@ -20,8 +23,42 @@ public class MatriculaForm extends GenericForm{
         String dni = pedirTextoNoVacio(sc, "Introduce el dni del alumno: ");
         
         Alumno a = new Alumno(apellidos, dni, nombre);
+        
+        String idAsig = "";
+    	Hashtable<String, Asignatura> asignaturas = new Hashtable<String, Asignatura>();
+    	AsignaturaService service = (AsignaturaService) ServiceFactory.getInstance().getService(3);
+        
+    	while (true) {
+            System.out.print("ID Asignatura > ");
+            idAsig = sc.nextLine().trim();
 
-        return new Matricula(id, a, null);
+            if ("FIN".equalsIgnoreCase(idAsig) || "SALIR".equalsIgnoreCase(idAsig)) {
+                break;
+            }
+            
+            if (idAsig.isEmpty()) continue;
+
+            //Validamos que no esté ya añadida
+            if (asignaturas.containsKey(idAsig)) {
+                System.out.println("Esa asignatura ya está en la lista.");
+                continue;
+            }
+
+            try {
+                Asignatura asigEncontrada = (Asignatura) service.get(idAsig);
+
+                if (asigEncontrada != null) {
+                    asignaturas.put(idAsig, asigEncontrada);
+                    System.out.println("Asignatura '" + asigEncontrada.getNombre() + "' añadida.");
+                } else {
+                    System.out.println("No existe asignatura con ese ID.");
+                }
+            } catch (Exception e) {
+                System.out.println("Error de comunicación al buscar asignatura.");
+            }
+        }
+
+        return new Matricula(id, a, asignaturas);
 	}
 
 	@Override

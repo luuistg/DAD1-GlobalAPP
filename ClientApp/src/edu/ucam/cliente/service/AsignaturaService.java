@@ -25,8 +25,11 @@ public class AsignaturaService implements IGenericService<Asignatura, String>{
 	}
 
 	@Override
-	public void get(String id) throws Exception {
-		// TODO Auto-generated method stub
+	public Asignatura get(String id) throws Exception {
+		Asignatura t = (Asignatura) repo.getModel(id);	
+		if (t != null) this.toString(t);
+		
+		return t;
 		
 	}
 
@@ -54,6 +57,13 @@ public class AsignaturaService implements IGenericService<Asignatura, String>{
 
 	public void listAsigFromTit() {
 		// TODO Auto-generated method stub
+		
+	}
+	public void toString(Asignatura t) {
+		
+		System.out.println("Matricula: " + System.lineSeparator()
+				+ "Id: " + t.getId());
+		
 		
 	}
 

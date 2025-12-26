@@ -6,7 +6,7 @@ public interface IGenericService <T, K>{
 	    
 	    void delete(String id) throws Exception;
 	    
-	    void get(String id) throws Exception;
+	    T get(String id) throws Exception;
 	    
 	    void update(String id, Object model) throws Exception;
 	    

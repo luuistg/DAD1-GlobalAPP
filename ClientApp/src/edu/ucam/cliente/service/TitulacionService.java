@@ -27,10 +27,11 @@ public class TitulacionService implements IGenericService<Titulacion, String>{
 	}
 
 	@Override
-	public void get(String id) throws Exception {
-		
+	public Titulacion get(String id) throws Exception {		
 		Titulacion t = (Titulacion) repo.getModel(id);	
 		if (t != null) this.toString(t);
+		
+		return t;
 	}
 
 	@Override

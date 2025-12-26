@@ -27,10 +27,11 @@ public class MatriculaService implements IGenericService<Matricula, String>{
 	}
 
 	@Override
-	public void get(String id) throws Exception {
+	public Matricula get(String id) throws Exception {
 		
 		Matricula t = (Matricula) repo.getModel(id);	
 		if (t != null) this.toString(t);
+		return t;
 	}
 
 	@Override

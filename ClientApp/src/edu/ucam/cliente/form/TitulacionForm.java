@@ -7,7 +7,7 @@ import edu.ucam.domain.Titulacion;
 public class TitulacionForm extends GenericForm{
 
 	@Override
-	public Titulacion addForm(Scanner sc) {
+	public Titulacion addForm(Scanner sc){
 		
 		System.out.println("\n--- REGISTRO DE NUEVA TITULACIÓN ---");
 

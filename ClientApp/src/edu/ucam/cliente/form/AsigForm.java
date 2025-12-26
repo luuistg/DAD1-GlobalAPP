@@ -7,7 +7,7 @@ import edu.ucam.cliente.interfaces.IForm;
 public class AsigForm implements IForm {
 
 	@Override
-	public Object addForm(Scanner sc) {
+	public Object addForm(Scanner sc){
 		// TODO Auto-generated method stub
 		return null;
 	}
