@@ -39,7 +39,7 @@ public class TitDAOImplementation implements TitulacionDAO{
 
 	@Override
 	public void guardar(Titulacion t) {
-		db.titulaciones.put(t.getId().trim(), t);
+		db.titulaciones.put(t.getId(), t);
 		
 	}
 

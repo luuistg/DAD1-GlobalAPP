@@ -1,5 +1,7 @@
 package edu.ucam.cliente.service;
 
+import java.util.List;
+
 import edu.ucam.cliente.interfaces.IGenericService;
 import edu.ucam.cliente.repository.AsignaturaRepository;
 import edu.ucam.domain.Asignatura;
@@ -14,13 +16,13 @@ public class AsignaturaService implements IGenericService<Asignatura, String>{
 
 	@Override
 	public void add(Object object) throws Exception {
-		// TODO Auto-generated method stub
+		repo.add(object);
 		
 	}
 
 	@Override
 	public void delete(String id) throws Exception {
-		// TODO Auto-generated method stub
+		repo.delete(id);
 		
 	}
 
@@ -35,13 +37,23 @@ public class AsignaturaService implements IGenericService<Asignatura, String>{
 
 	@Override
 	public void update(String id, Object model) throws Exception {
-		// TODO Auto-generated method stub
+		repo.update(id, model);
 		
 	}
 
 	@Override
-	public void list() throws Exception {
-		// TODO Auto-generated method stub
+	public List<Asignatura> list() throws Exception {
+		
+		List<Asignatura> list = (List<Asignatura>) repo.list();
+		
+		if(list.isEmpty()) {
+			System.out.println("No Hay Asignaturas añadidas a la univerisdad");
+		} else {
+			for(Asignatura a : list) {
+				toString(a);
+			}
+		}
+		return list;
 		
 	}
 
@@ -59,11 +71,14 @@ public class AsignaturaService implements IGenericService<Asignatura, String>{
 		// TODO Auto-generated method stub
 		
 	}
-	public void toString(Asignatura t) {
+	
+	public void toString(Asignatura a) {
 		
-		System.out.println("Matricula: " + System.lineSeparator()
-				+ "Id: " + t.getId());
+		System.out.println();
+		System.out.println("Asignatura:");
 		
+		System.out.println("ID: " + a.getId() + ", " + a.getNombre() + " nº de Creditos: " + a.getCreditos());
+
 		
 	}
 

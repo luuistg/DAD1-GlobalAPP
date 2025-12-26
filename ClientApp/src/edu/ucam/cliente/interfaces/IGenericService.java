@@ -1,5 +1,7 @@
 package edu.ucam.cliente.interfaces;
 
+import java.util.List;
+
 public interface IGenericService <T, K>{
 	    
 	    void add(Object object) throws Exception;
@@ -10,6 +12,6 @@ public interface IGenericService <T, K>{
 	    
 	    void update(String id, Object model) throws Exception;
 	    
-	    void list() throws Exception;
+	    List<T> list() throws Exception;
 
 }

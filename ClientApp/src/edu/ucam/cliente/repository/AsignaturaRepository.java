@@ -10,7 +10,7 @@ public class AsignaturaRepository extends BaseRepository <Asignatura>{
 		super(comm, channelData, 
 	              "ADDASIG",         
 	              "DELASIG",         
-	              "LISTAASIG",        
+	              "LISTASIG",        
 	              "UPDATEASIG",         
 	              "GETASIG"          
 	        );

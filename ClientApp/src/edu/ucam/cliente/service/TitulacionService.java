@@ -40,7 +40,7 @@ public class TitulacionService implements IGenericService<Titulacion, String>{
 	}
 
 	@Override
-	public void list() throws Exception {
+	public List<Titulacion> list() throws Exception {
 		
 		List<Titulacion> list = (List<Titulacion>) repo.list();
 		
@@ -51,6 +51,7 @@ public class TitulacionService implements IGenericService<Titulacion, String>{
 				toString(t);
 			}
 		}
+		return list;
 	}
 	
 	public void count() throws Exception{
@@ -60,6 +61,7 @@ public class TitulacionService implements IGenericService<Titulacion, String>{
 	
 	public void toString(Titulacion t) {
 		
+		System.out.println();
 		System.out.println("Titulacion: " + System.lineSeparator()
 				+ "Id: " + t.getId() + System.lineSeparator()
 				+ "Nombre: " + t.getNombre());

@@ -6,6 +6,8 @@ import java.util.Map;
 import edu.ucam.interfaces.ICommand;
 import edu.ucam.logic.command.LogInCommand;
 import edu.ucam.logic.command.PassCommand;
+import edu.ucam.logic.command.asig.AddAsigCommand;
+import edu.ucam.logic.command.asig.ListAsigCommand;
 import edu.ucam.logic.command.matricula.AddMatCommand;
 import edu.ucam.logic.command.matricula.GetMatCommand;
 import edu.ucam.logic.command.matricula.RemoveMatCommand;
@@ -50,7 +52,9 @@ public class ProtocolParser {
         
         
         // Comandos de Asignaturas
-        comands.put("ADDASIG", null);
+        comands.put("ADDASIG", new AddAsigCommand());
+        comands.put("LISTASIG", new ListAsigCommand());
+        
         
         // Comandos de Matriculas
         comands.put("ADDMATRICULA", new AddMatCommand());

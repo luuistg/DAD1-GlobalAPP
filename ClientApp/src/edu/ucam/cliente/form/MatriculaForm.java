@@ -1,6 +1,7 @@
 package edu.ucam.cliente.form;
 
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Scanner;
 
 import edu.ucam.cliente.factory.ServiceFactory;
@@ -22,44 +23,57 @@ public class MatriculaForm extends GenericForm{
         String apellidos = pedirTextoNoVacio(sc, "Introduce los apellidos del alumno: ");
         String dni = pedirTextoNoVacio(sc, "Introduce el dni del alumno: ");
         
-        Alumno a = new Alumno(apellidos, dni, nombre);
+        Alumno a = new Alumno(dni, apellidos, nombre);
         
         String idAsig = "";
-    	Hashtable<String, Asignatura> asignaturas = new Hashtable<String, Asignatura>();
     	AsignaturaService service = (AsignaturaService) ServiceFactory.getInstance().getService(3);
-        
-    	while (true) {
-            System.out.print("ID Asignatura > ");
-            idAsig = sc.nextLine().trim();
 
-            if ("FIN".equalsIgnoreCase(idAsig) || "SALIR".equalsIgnoreCase(idAsig)) {
-                break;
+        try {
+        	List<Asignatura> serverList = ((AsignaturaService)service).list();
+            
+            Hashtable<String, Asignatura> local = new Hashtable<>();
+            if (serverList != null) {
+                for (Asignatura asig : serverList) {
+                	local.put(asig.getId(), asig);
+                }
             }
             
-            if (idAsig.isEmpty()) continue;
+            Hashtable<String, Asignatura> asignaturas = new Hashtable<>();
+            
+            System.out.println("\n--- SELECCIÓN DE ASIGNATURAS ---");
+            
+            System.out.println("Introduce 'OK' para terminar el proceso de selección.");
+            
+        	while (true) {
+                System.out.print("ID Asignatura > ");
+                idAsig = sc.nextLine().trim();
 
-            //Validamos que no esté ya añadida
-            if (asignaturas.containsKey(idAsig)) {
-                System.out.println("Esa asignatura ya está en la lista.");
-                continue;
-            }
-
-            try {
-                Asignatura asigEncontrada = (Asignatura) service.get(idAsig);
-
-                if (asigEncontrada != null) {
-                    asignaturas.put(idAsig, asigEncontrada);
-                    System.out.println("Asignatura '" + asigEncontrada.getNombre() + "' añadida.");
-                } else {
-                    System.out.println("No existe asignatura con ese ID.");
+                if ("OK".equalsIgnoreCase(idAsig)) {
+                    break;
                 }
-            } catch (Exception e) {
-                System.out.println("Error de comunicación al buscar asignatura.");
-            }
-        }
+                
+                if (idAsig.isEmpty()) continue;
 
-        return new Matricula(id, a, asignaturas);
-	}
+                if (local.containsKey(idAsig)) {
+                	
+                	if (asignaturas.containsKey(idAsig)) {
+                        System.out.println("AVISO: Esa asignatura ya está añadida en esta matrícula.");
+                    }else {
+                        asignaturas.put(idAsig, local.get(idAsig));
+                        System.out.println("Asignatura añadida a la matrícula.");
+                    }
+                } else {
+                    System.out.println("ID desconocido. Revisa la lista de arriba.");
+                }
+        	}
+        	
+            return new Matricula(id, a, asignaturas);
+             
+        } catch (Exception e) {
+            System.out.println("Error de comunicación al buscar asignatura.");
+            return null;
+        }
+    }
 
 	@Override
 	public String getForm(Scanner sc) {

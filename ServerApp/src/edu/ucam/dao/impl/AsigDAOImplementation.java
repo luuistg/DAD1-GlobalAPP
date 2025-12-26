@@ -1,5 +1,6 @@
 package edu.ucam.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ucam.data.UniversityRepository;
@@ -12,7 +13,7 @@ public class AsigDAOImplementation implements AsignaturaDAO{
 
 	@Override
 	public void guardar(Asignatura t) {
-		// TODO Auto-generated method stub
+		db.asignaturas.put(t.getId(), t);
 		
 	}
 
@@ -31,8 +32,12 @@ public class AsigDAOImplementation implements AsignaturaDAO{
 
 	@Override
 	public List<Asignatura> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (db.asignaturas.isEmpty()) {
+            return new ArrayList<>();
+        }
+        // Creamos una copia nueva para enviar
+        return new ArrayList<>(db.asignaturas.values());
 	}
 
 	@Override

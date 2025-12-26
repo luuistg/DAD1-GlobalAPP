@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.ucam.cliente.interfaces.IGenericService;
 import edu.ucam.cliente.repository.MatriculaRepository;
+import edu.ucam.domain.Asignatura;
 import edu.ucam.domain.Matricula;
 
 public class MatriculaService implements IGenericService<Matricula, String>{
@@ -17,7 +18,12 @@ public class MatriculaService implements IGenericService<Matricula, String>{
     @Override
     public void add(Object t) throws Exception {
  
-        repo.add(t); 
+    	if(t != null) {
+    		repo.add(t); 
+    	}else {
+    		System.out.println("No se pududo enviar la información al servidor.");
+    	}
+        
     }
 
 	@Override
@@ -40,7 +46,7 @@ public class MatriculaService implements IGenericService<Matricula, String>{
 	}
 
 	@Override
-	public void list() throws Exception {
+	public List<Matricula> list() throws Exception {
 		
 		List<Matricula> list = (List<Matricula>) repo.list();
 		
@@ -51,14 +57,21 @@ public class MatriculaService implements IGenericService<Matricula, String>{
 				toString(t);
 			}
 		}
+		return list;
 	}
 	
 	public void toString(Matricula t) {
 		
+		System.out.println();
 		System.out.println("Matricula: " + System.lineSeparator()
 				+ "Id: " + t.getId() + System.lineSeparator()
 				+ "DNI del Alumno: " + t.getAlumno().getDni() + System.lineSeparator()
-				+ "Alumno: " + t.getAlumno().getNombre() +  " " + t.getAlumno().getApellidos());
+				+ "Alumno: " + t.getAlumno().getNombre() +  " " + t.getAlumno().getApellidos() + System.lineSeparator()
+				+ "Asignaturas: "
+				);
+		for (Asignatura a : t.getAsignaturas()) {
+			System.out.println("ID: " + a.getId() + ", " + a.getNombre() + " nº de Creditos: " + a.getCreditos());
+		}
 		
 		
 	}
