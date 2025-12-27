@@ -1,8 +1,10 @@
 package edu.ucam.cliente.form;
 
+import java.util.Hashtable;
 import java.util.Scanner;
 
 import edu.ucam.domain.Titulacion;
+import edu.ucam.domain.Asignatura;
 
 public class TitulacionForm extends GenericForm{
 
@@ -15,7 +17,7 @@ public class TitulacionForm extends GenericForm{
 
         String nombre = pedirTextoNoVacio(sc, "Introduce el Nombre: ");
 
-        return new Titulacion(id, nombre, null);
+        return new Titulacion(id, nombre, new Hashtable<String, Asignatura>());
 	}
 
 	@Override

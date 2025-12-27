@@ -43,20 +43,49 @@ public class AsigDAOImplementation implements AsignaturaDAO{
 	}
 
 	@Override
-	public void addAsigToTit() {
-		// TODO Auto-generated method stub
+	public boolean addAsigToTit(String idAsig, String idTit) {
+		
+		boolean existAsignatura = db.asignaturas.containsKey(idAsig);
+	    boolean existTitulacion = db.titulaciones.containsKey(idTit);
+	    
+		if( existAsignatura && existTitulacion) {
+			
+			db.titulaciones.get(idTit).addAsignatura(db.asignaturas.get(idAsig));
+			return true;
+
+		}
+		
+		return false;
 		
 	}
 
 	@Override
-	public void removeAsigToTit() {
-		// TODO Auto-generated method stub
+	public boolean removeAsigToTit(String idAsig, String idTit) {
+		
+		boolean existAsignatura = db.asignaturas.containsKey(idAsig);
+	    boolean existTitulacion = db.titulaciones.containsKey(idTit);
+	    
+		if( existAsignatura && existTitulacion) {
+			
+			db.titulaciones.get(idTit).removeAsignatura(db.asignaturas.get(idAsig));
+			return true;
+
+		}
+		
+		return false;
 		
 	}
 
 	@Override
-	public void listAsigFromTit() {
-		// TODO Auto-generated method stub
+	public List<Asignatura> listAsigFromTit(String idTit) {
+		if(db.titulaciones.containsKey(idTit)) {
+			
+			
+			return new ArrayList<>(db.titulaciones.get(idTit).getAsignaturas());
+
+		}
+		
+		return null;
 		
 	}
 

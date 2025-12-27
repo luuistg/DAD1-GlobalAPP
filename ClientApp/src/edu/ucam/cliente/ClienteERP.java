@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import edu.ucam.cliente.factory.ServiceFactory;
+import edu.ucam.cliente.form.AsigForm;
 import edu.ucam.cliente.interfaces.IChannelData;
 import edu.ucam.cliente.interfaces.IComunicationServer;
 import edu.ucam.cliente.interfaces.IUserInterface;
@@ -124,14 +125,14 @@ public class ClienteERP {
 					((TitulacionService) service).count();
 				} 
 				else{
-					((AsignaturaService) service).addAsigToTit();
+					((AsignaturaService) service).addAsigToTit(form.getForm(sc), ((AsigForm) form).getTit(sc));
 				}
 				break;
 			case 7:
-				((AsignaturaService) service).removeAsigToTit();
+				((AsignaturaService) service).removeAsigToTit(form.getForm(sc), ((AsigForm) form).getTit(sc));
 				break;
 			case 8:
-				((AsignaturaService) service).listAsigFromTit();
+				((AsignaturaService) service).listAsigFromTit(((AsigForm) form).getTit(sc));
 				break;
 			case 0:
 				break;

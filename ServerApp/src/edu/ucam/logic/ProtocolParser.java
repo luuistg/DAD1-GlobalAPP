@@ -7,9 +7,12 @@ import edu.ucam.interfaces.ICommand;
 import edu.ucam.logic.command.LogInCommand;
 import edu.ucam.logic.command.PassCommand;
 import edu.ucam.logic.command.asig.AddAsigCommand;
+import edu.ucam.logic.command.asig.AddAsigToTitCommand;
 import edu.ucam.logic.command.asig.GetAsigCommand;
 import edu.ucam.logic.command.asig.ListAsigCommand;
+import edu.ucam.logic.command.asig.ListAsigFromTitCommand;
 import edu.ucam.logic.command.asig.RemoveAsigCommand;
+import edu.ucam.logic.command.asig.RemoveAsigFromTitCommand;
 import edu.ucam.logic.command.asig.UpdateAsigCommand;
 import edu.ucam.logic.command.matricula.AddMatCommand;
 import edu.ucam.logic.command.matricula.GetMatCommand;
@@ -60,6 +63,9 @@ public class ProtocolParser {
         comands.put("GETASIG", new GetAsigCommand());
         comands.put("REMOVEASIG", new RemoveAsigCommand());
         comands.put("UPDATEASIG", new UpdateAsigCommand());
+        comands.put("ADDASIG2TIT", new AddAsigToTitCommand());
+        comands.put("REMOVEASIGFROMTIT", new RemoveAsigFromTitCommand());
+        comands.put("LISTASIGFROMTIT", new ListAsigFromTitCommand());
         
         
         // Comandos de Matriculas

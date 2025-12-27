@@ -5,5 +5,5 @@
  * 
  */
 module Cliente {
-	requires clasesdominio;
+	requires clasesdominiov2;
 }

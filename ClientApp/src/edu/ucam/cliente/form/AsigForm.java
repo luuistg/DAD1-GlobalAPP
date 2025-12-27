@@ -22,7 +22,7 @@ public class AsigForm extends GenericForm {
 
 	@Override
 	public String getForm(Scanner sc) {
-		String id = pedirTextoNoVacio(sc, "Introduce el ID: ");
+		String id = pedirTextoNoVacio(sc, "Introduce el ID de la asignatura: ");
 		return id;
 	}
 
@@ -34,6 +34,13 @@ public class AsigForm extends GenericForm {
         int creditos = pedirEntero(sc, "Introduce el número de Creditos: ");
 
         return new Asignatura(id, nombre, creditos);
+	}
+	
+	public String getTit(Scanner sc){
+		
+		String id = pedirTextoNoVacio(sc, "Introduce el ID de la Titulacion: ");
+		return id;
+		
 	}
 
 	

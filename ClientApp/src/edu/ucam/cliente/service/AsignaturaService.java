@@ -1,5 +1,6 @@
 package edu.ucam.cliente.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import edu.ucam.cliente.interfaces.IGenericService;
@@ -57,18 +58,28 @@ public class AsignaturaService implements IGenericService<Asignatura, String>{
 		
 	}
 
-	public void addAsigToTit() {
-		// TODO Auto-generated method stub
+	public void addAsigToTit(String idAsig, String idTit) throws IOException {
+		repo.addAsigToTit(idAsig, idTit);
 		
 	}
 
-	public void removeAsigToTit() {
-		// TODO Auto-generated method stub
+	public void removeAsigToTit(String idAsig, String idTit) throws IOException {
+		repo.removeAsigToTit(idAsig, idTit);
 		
 	}
 
-	public void listAsigFromTit() {
-		// TODO Auto-generated method stub
+	public List<Asignatura> listAsigFromTit(String idTit) throws ClassNotFoundException, IOException {
+		
+		List<Asignatura> list = (List<Asignatura>)repo.listAsigFromTit(idTit);
+		
+		if(list.isEmpty()) {
+			System.out.println("No Hay Asignaturas añadidas a la titulación con id: " + idTit);
+		} else {
+			for(Asignatura a : list) {
+				toString(a);
+			}
+		}
+		return list;
 		
 	}
 	
