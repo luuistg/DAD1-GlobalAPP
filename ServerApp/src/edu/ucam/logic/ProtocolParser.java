@@ -74,6 +74,8 @@ public class ProtocolParser {
         comands.put("REMOVEMATRICULA", new RemoveMatCommand());
         comands.put("UPDATEMATRICULA", new UpdateMatCommand());
         
+        
+        
     }
 	
 	public String processCommand(String recivedLine) {
@@ -93,6 +95,19 @@ public class ProtocolParser {
 				"Acceso denegado. Debe iniciar sesión primero."
 				).toProtocolString();
 		
+	    if (request.getName().equals("EXIT")) {
+	        // Avisamos al ClientHandler que debe dejar de escuchar
+	        clientHandler.stopHandler(); 
+	        
+	        // Devolvemos el mensaje de despedida (OK)
+	        return new ProtocolResponse(
+	            ProtocolResponse.Status.OK,
+	            request.getId(),
+	            200,
+	            "BYE"
+	        ).toProtocolString();
+	    }
+	    
 		if (comands.containsKey(request.getName())) {
             
 		    try {
