@@ -15,7 +15,7 @@ public class RemoveAsigFromTitCommand implements ICommand{
 		AsignaturaDAO dao = DAOFactory.getInstance().getAsignaturaDAO();
 		
 		
-		if(dao.addAsigToTit(cp.getParam(0), cp.getParam(1))) {
+		if(dao.removeAsigToTit(cp.getParam(0), cp.getParam(1))) {
 			
 			return new ProtocolResponse(
 	    	        ProtocolResponse.Status.OK, 

@@ -67,7 +67,7 @@ public class AsigDAOImplementation implements AsignaturaDAO{
 	    
 		if( existAsignatura && existTitulacion) {
 			
-			db.titulaciones.get(idTit).removeAsignatura(db.asignaturas.get(idAsig));
+			db.titulaciones.get(idTit).removeAsignatura(idAsig);
 			return true;
 
 		}

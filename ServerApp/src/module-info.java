@@ -5,5 +5,5 @@
  * 
  */
 module Servidor {
-	requires clasesdominiov2;
+	requires clasesdominiov3;
 }
